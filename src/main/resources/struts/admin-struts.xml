@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.custom.i18n.resources" value="i18n.engine,i18n.static,ApplicationMessages" />
+	<constant name="struts.action.extension" value="ls" />
+	<constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+	
+	<package name="administration" namespace="/admin" extends="struts-default">
+		
+		<result-types>
+			 <result-type name="json" class="org.apache.struts2.json.JSONResult" />
+			 <result-type name="redirect" class="org.apache.struts2.dispatcher.ServletRedirectResult"/> 
+		</result-types>
+		<action name="configuration">
+			<result>problem-management.jsp</result>
+		</action>
+		<action name="loadUser">
+			<result>user-management.jsp</result>
+		</action>
+		<action name="userCityAssign">
+			<result>user-city-assign.jsp</result>
+		</action>
+		<action name="loadStatistics">
+			<result>admin-statistics.jsp</result>
+		</action>
+		<action name="ajaxFindUser" class="userAction" method="ajaxFindUser">
+			<result name="success" type="json">
+				<param name="root">users</param>
+			</result>
+		</action>
+		<action name="getAllUserAccounts" class="userAction" method="getAllUserAccounts">
+			<result name="success" type="json">
+				<param name="root">usersList</param>
+			</result>
+		</action>
+		<action name="loadAllUsers" class="userAction" method="loadAllUsers">
+			<result name="success" type="json">
+				<param name="root">users</param>
+			</result>
+		</action>
+		<action name="createUser" class="userAction" method="createUser">
+			<result name="input">
+				user-management.jsp
+			</result>
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+			<result name="error" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="saveProblem" class="configurationAction" method="saveProblem">
+			<result name="success" type="json">
+				<param name="root">problemOperating</param>
+			</result>
+		</action>
+		<action name="getAllProblems" class="configurationAction"
+			method="getAllProblems">
+			<result name="success" type="json">
+				<param name="root">problems</param>
+			</result>
+		</action>
+		<action name="deleteProblem" class="configurationAction"
+			method="deleteProblem">
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="disactiveUser" class="userAction" method="disactiveUser">
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="resetPassword" class="userAction" method="resetPassword">
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="getAllRoles" class="userAction" method="getAllRoles">
+			<result name="success" type="json">
+				<param name="root">roles</param>
+			</result>
+		</action>
+		
+		<action name="updateUserRole" class="userAction" method="updateUserRole">
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="updateUserCity" class="userAction" method="updateUserCity">
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="showAssignedCities" class="userAction" method="showAssignedCities">
+			<result name="success" type="json">
+				<param name="root">userOwnedCityIds</param>
+			</result>
+		</action>
+		<action name="loadChina" class="userAction" method="loadChina">
+			<result name="success" type="json">
+				<param name="root">chinaProvinces</param>
+			</result>
+		</action>
+		<action name="findTop10CityCompanyCount" class="companyAction" method="findTop10CityCompanyCount">
+			<result name="success" type="json">
+				<param name="root">barChartData</param>
+			</result>
+		</action>
+		
+	</package>	
+</struts>

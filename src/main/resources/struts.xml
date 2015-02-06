@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.custom.i18n.resources" value="i18n.engine,i18n.static,ApplicationMessages" />
+	<constant name="struts.action.extension" value="ls" />
+	<constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+	
+	<package name="user" namespace="/user" extends="struts-default">
+		<result-types>
+			 <result-type name="json" class="org.apache.struts2.json.JSONResult" />
+			 <result-type name="redirect" class="org.apache.struts2.dispatcher.ServletRedirectResult"/> 
+		</result-types>
+		
+		 <action name="load">
+			<result>customer-management.jsp</result>
+		</action>
+	</package>
+
+	<include file="struts/access-struts.xml" />
+	<include file="struts/customer-management-struts.xml" />
+	<include file="struts/grab-struts.xml" />
+	<include file="struts/admin-struts.xml"/>
+	<include file="struts/wccheck-struts.xml"/>
+	
+</struts>

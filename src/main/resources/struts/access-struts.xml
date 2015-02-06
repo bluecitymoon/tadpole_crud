@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.custom.i18n.resources" value="i18n.engine,i18n.static,ApplicationMessages" />
+	<constant name="struts.action.extension" value="ls" />
+	<constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+	
+	<package name="access" namespace="/" extends="struts-default">
+		
+		<result-types>
+			 <result-type name="json" class="org.apache.struts2.json.JSONResult" />
+			 <result-type name="redirect" class="org.apache.struts2.dispatcher.ServletRedirectResult"/> 
+		</result-types>
+		<action name="login">
+			<result>index.jsp</result>
+		</action>
+		<action name="badaccess">
+			<result>access-denied.jsp</result>
+		</action>
+		<action name="login-process" class="userAction" method="doLogin">
+			<result name="success" type="redirectAction">
+				<param name="actionName">load</param>
+				<param name="namespace">/user</param>
+			</result>
+			<result name="error" type="redirectAction">
+				<param name="actionName">home</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="input" type="redirectAction">
+				<param name="actionName">home</param>
+				<param name="namespace">/</param>
+			</result>
+		</action>
+		<action name="logoff" class="userAction" method="doLogoff">
+			<result name="success" type="redirectAction">
+				<param name="actionName">home</param>
+				<param name="namespace">/</param>
+			</result>
+		</action>
+		<action name="findAllMenus" class="commonAction" method="findAllMenus">
+			<result name="success" type="json">
+				<param name="root">menus</param>
+			</result>
+		</action>
+		<action name="loadMe" class="commonAction" method="loadMe">
+			<result name="success" type="json">
+				<param name="root">user</param>
+			</result>
+		</action>
+		<action name="resetMyPassword" class="commonAction" method="resetMyPassword">
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+	</package>	
+</struts>
